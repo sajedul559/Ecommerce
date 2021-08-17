@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.9.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 05, 2018 at 07:55 AM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 7.1.7
+-- Generation Time: Aug 17, 2021 at 08:43 AM
+-- Server version: 10.4.8-MariaDB
+-- PHP Version: 7.3.11
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,7 +19,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `laravel_ecommerce_tutorial`
+-- Database: `ecommerce`
 --
 
 -- --------------------------------------------------------
@@ -46,7 +46,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `phone_no`, `avatar`, `type`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'sajedul', 'sajedulkhairul@gmail.com', '$2y$10$mczx1Yyh.YYQ5LNqx.0vbuPfqUKaqcJaXHUTk0q3Q5syrpbWb9VKO', '01882632239', NULL, 'Super Admin', 'k0pg6dbf22vBmzlvvxph92bPlpxkqxTVxVaFvDEsgodjvx5yB2TtOUFTa8s3', '2018-08-28 23:18:25', '2018-08-30 21:06:13');
+(1, 'sajedul', 'sajedulkhairul@gmail.com', '$2y$10$KRdN3YO6k2JE6BjO1eb5Gu1MhHmzKNIeMxVsdXvlSb6ARy.v1Le5e', '01882632239', NULL, 'Super Admin', 'Im4bTp2hCnSxlrI0SPNdjiWOO3OFz17cBx6jcQNfr82PfvQsuk6pE2kIWnon', '2018-08-28 23:18:25', '2021-08-16 23:55:08');
 
 -- --------------------------------------------------------
 
@@ -57,7 +57,7 @@ INSERT INTO `admins` (`id`, `name`, `email`, `password`, `phone_no`, `avatar`, `
 CREATE TABLE `brands` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -84,7 +84,7 @@ CREATE TABLE `carts` (
   `user_id` int(10) UNSIGNED DEFAULT NULL,
   `order_id` int(10) UNSIGNED DEFAULT NULL,
   `ip_address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `product_quantity` int(11) NOT NULL DEFAULT '1',
+  `product_quantity` int(11) NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -94,10 +94,10 @@ CREATE TABLE `carts` (
 --
 
 INSERT INTO `carts` (`id`, `product_id`, `user_id`, `order_id`, `ip_address`, `product_quantity`, `created_at`, `updated_at`) VALUES
-(4, 2, 8, 4, '::1', 1, '2018-08-27 22:33:46', '2018-10-04 23:37:42'),
 (5, 3, NULL, NULL, '::1', 1, '2018-08-30 06:28:25', '2018-08-30 06:28:25'),
 (6, 2, NULL, NULL, '::1', 1, '2018-08-30 06:29:18', '2018-08-30 06:29:18'),
-(7, 1, NULL, NULL, '::1', 2, '2018-08-30 06:29:29', '2018-08-30 06:29:35');
+(7, 1, NULL, NULL, '::1', 2, '2018-08-30 06:29:29', '2018-08-30 06:29:35'),
+(8, 2, 9, NULL, '127.0.0.1', 1, '2021-08-17 00:40:27', '2021-08-17 00:40:27');
 
 -- --------------------------------------------------------
 
@@ -108,7 +108,7 @@ INSERT INTO `carts` (`id`, `product_id`, `user_id`, `order_id`, `ip_address`, `p
 CREATE TABLE `categories` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` text COLLATE utf8mb4_unicode_ci,
+  `description` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -120,9 +120,10 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`, `description`, `image`, `parent_id`, `created_at`, `updated_at`) VALUES
-(1, 'Fashion', 'Fashion Category', '1532145104.jpg', NULL, '2018-07-20 21:51:44', '2018-07-20 21:51:44'),
-(2, 'Sunglass', NULL, '1532145185.jpg', 1, '2018-07-20 21:53:05', '2018-07-20 21:53:05'),
-(3, 'Household', NULL, '1532145244.jpg', NULL, '2018-07-20 21:54:04', '2018-07-20 21:54:04');
+(1, 'Fashion', 'Fashion Category', '1629180358.jpg', NULL, '2018-07-20 21:51:44', '2021-08-17 00:05:59'),
+(2, 'Sunglass', NULL, '1629180297.jpg', 1, '2018-07-20 21:53:05', '2021-08-17 00:04:57'),
+(3, 'Household', NULL, '1629179858.jpg', NULL, '2018-07-20 21:54:04', '2021-08-16 23:57:38'),
+(4, 'Women', NULL, '1629180228.jpg', NULL, '2021-08-17 00:03:48', '2021-08-17 00:03:48');
 
 -- --------------------------------------------------------
 
@@ -158,7 +159,7 @@ INSERT INTO `districts` (`id`, `name`, `division_id`, `created_at`, `updated_at`
 CREATE TABLE `divisions` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `priority` tinyint(3) UNSIGNED NOT NULL DEFAULT '1',
+  `priority` tinyint(3) UNSIGNED NOT NULL DEFAULT 1,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -206,7 +207,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (15, '2018_08_28_083714_create_settings_table', 6),
 (16, '2018_08_28_085245_create_payments_table', 7),
 (17, '2018_08_28_033110_create_orders_table', 8),
-(18, '2018_02_23_015128_create_admins_table', 9);
+(18, '2018_02_23_015128_create_admins_table', 9),
+(19, '2021_07_05_201203_create_sliders_table', 10),
+(20, '2021_07_08_190124_create_students_table', 10);
 
 -- --------------------------------------------------------
 
@@ -223,24 +226,14 @@ CREATE TABLE `orders` (
   `phone_no` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `shipping_address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `message` text COLLATE utf8mb4_unicode_ci,
-  `is_paid` tinyint(1) NOT NULL DEFAULT '0',
-  `is_completed` tinyint(1) NOT NULL DEFAULT '0',
-  `is_seen_by_admin` tinyint(1) NOT NULL DEFAULT '0',
+  `message` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `is_paid` tinyint(1) NOT NULL DEFAULT 0,
+  `is_completed` tinyint(1) NOT NULL DEFAULT 0,
+  `is_seen_by_admin` tinyint(1) NOT NULL DEFAULT 0,
   `transaction_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `orders`
---
-
-INSERT INTO `orders` (`id`, `user_id`, `payment_id`, `ip_address`, `name`, `phone_no`, `shipping_address`, `email`, `message`, `is_paid`, `is_completed`, `is_seen_by_admin`, `transaction_id`, `created_at`, `updated_at`) VALUES
-(1, 8, 2, NULL, 'Maniruzzaman Akash', '1951233084', 'Dumki', 'manirujjamanakash@gmail.com', NULL, 1, 1, 1, NULL, '2018-08-28 20:01:58', '2018-08-28 20:01:58'),
-(2, 8, 1, '::1', 'Maniruzzaman Akash', '1951233084', 'New', 'manirujjamanakash@gmail.com', NULL, 1, 1, 1, NULL, '2018-08-28 20:03:57', '2018-10-04 23:49:14'),
-(3, 8, 2, '::1', 'Maniruzzaman Akash', '1951233084', 'New', 'manirujjamanakash@gmail.com', NULL, 0, 0, 0, '24343434', '2018-08-28 20:09:29', '2018-08-28 20:09:29'),
-(4, 8, 1, '::1', 'Maniruzzaman Akash', '1951233084', 'New', 'manirujjamanakash@gmail.com', NULL, 1, 1, 0, NULL, '2018-08-28 20:09:58', '2018-10-04 23:48:19');
 
 -- --------------------------------------------------------
 
@@ -271,7 +264,7 @@ CREATE TABLE `payments` (
   `id` int(10) UNSIGNED NOT NULL,
   `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `priority` tinyint(4) NOT NULL DEFAULT '1',
+  `priority` tinyint(4) NOT NULL DEFAULT 1,
   `short_name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `no` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'Payment No',
   `type` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'agent|personal',
@@ -301,9 +294,9 @@ CREATE TABLE `products` (
   `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `slug` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '1',
+  `quantity` int(11) NOT NULL DEFAULT 1,
   `price` int(11) NOT NULL,
-  `status` tinyint(4) NOT NULL DEFAULT '0',
+  `status` tinyint(4) NOT NULL DEFAULT 0,
   `offer_price` int(11) DEFAULT NULL,
   `admin_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
@@ -357,7 +350,7 @@ CREATE TABLE `settings` (
   `email` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping_cost` int(10) UNSIGNED NOT NULL DEFAULT '100',
+  `shipping_cost` int(10) UNSIGNED NOT NULL DEFAULT 100,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -368,6 +361,37 @@ CREATE TABLE `settings` (
 
 INSERT INTO `settings` (`id`, `email`, `phone`, `address`, `shipping_cost`, `created_at`, `updated_at`) VALUES
 (1, 'test@example.com', '01951233084', 'Dhaka-1200, Dhaka', 100, '2018-08-28 08:40:14', '2018-08-28 08:40:14');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `sliders`
+--
+
+CREATE TABLE `sliders` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `title` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `image` blob DEFAULT NULL,
+  `button_text` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `button_link` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `priority` tinyint(3) UNSIGNED DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `students`
+--
+
+CREATE TABLE `students` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `name` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -386,10 +410,10 @@ CREATE TABLE `users` (
   `street_address` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
   `division_id` int(10) UNSIGNED NOT NULL COMMENT 'Division Table ID',
   `district_id` int(10) UNSIGNED NOT NULL COMMENT 'District Table ID',
-  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT '0' COMMENT '0=Inactive|1=Active|2=Ban',
+  `status` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '0=Inactive|1=Active|2=Ban',
   `ip_address` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `avatar` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `shipping_address` text COLLATE utf8mb4_unicode_ci,
+  `shipping_address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -400,7 +424,21 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `phone_no`, `email`, `password`, `street_address`, `division_id`, `district_id`, `status`, `ip_address`, `avatar`, `shipping_address`, `remember_token`, `created_at`, `updated_at`) VALUES
-(8, 'Maniruzzaman', 'Akash', 'maniruzzamanakash2', '1951233084', 'manirujjamanakash@gmail.com', '$2y$10$hFKyIY6GoQ.anijWOknn7eKyXKn9xQC7jvWthDPs3./hXG3tXQ8Gi', 'Patuakhali, Bangladesh', 4, 2, 1, '::1', NULL, 'New', 'ESylWs9P7E6n1BglawSa4jIImKdNWbtChOMm2yBvcLjTR73jfy2aQIwrvSCk', '2018-07-22 00:35:46', '2018-08-27 19:45:20');
+(9, 'sajedul', 'islam', 'sajedulislam', '+8801882632239', 'sajedulislam.cu.43@gmail.com', '$2y$10$UDiJ23sbutoGkoJwNPOhCuBaEGnRbRn5RUFXMWaqXZE8g2KzVrc/y', 'Dhaka', 2, 5, 1, '127.0.0.1', NULL, NULL, 'RLT25hVNW1YRVq6w4DTvUnwa6VypcekafihtHQMPy72Gk9KjPv', '2021-08-17 00:18:40', '2021-08-17 00:18:40');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `wishlists`
+--
+
+CREATE TABLE `wishlists` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Indexes for dumped tables
@@ -492,6 +530,18 @@ ALTER TABLE `settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sliders`
+--
+ALTER TABLE `sliders`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `students`
+--
+ALTER TABLE `students`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -499,6 +549,12 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `users_username_unique` (`username`),
   ADD UNIQUE KEY `users_phone_no_unique` (`phone_no`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
+
+--
+-- Indexes for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -509,66 +565,97 @@ ALTER TABLE `users`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
 --
 -- AUTO_INCREMENT for table `brands`
 --
 ALTER TABLE `brands`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `districts`
 --
 ALTER TABLE `districts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `divisions`
 --
 ALTER TABLE `divisions`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
 --
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `sliders`
+--
+ALTER TABLE `sliders`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `students`
+--
+ALTER TABLE `students`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT for table `wishlists`
+--
+ALTER TABLE `wishlists`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
 --
 -- Constraints for dumped tables
 --

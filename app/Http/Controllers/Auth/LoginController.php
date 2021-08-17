@@ -55,6 +55,10 @@ class LoginController extends Controller
 
     //Find User by this email
     $user = User::where('email', $request->email)->first();
+    if (is_null($user)) {
+      session()->flash('sticky_error', 'Please signup first !!');
+      return redirect()->route('login');
+    }
 
     if ($user->status == 1) {
       // login This User
